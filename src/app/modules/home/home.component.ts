@@ -57,8 +57,8 @@ export class HomeComponent implements OnInit {
         } else {
           this.residentData = res;
         }
-      }, error: () => {
-
+      }, error: (error) => {
+        this.snackbarService.open(error.error, '', {duration: 2000});
       }, complete: () => {
         if (this.characterData) {
           if (type === 'character') {
@@ -97,8 +97,8 @@ export class HomeComponent implements OnInit {
       this.rickService.getLocation(this.characterData.location.url).subscribe({
         next: (res) => {
           this.locationData = res
-        }, error: () => {
-
+        }, error: (error) => {
+          this.snackbarService.open(error.error, '', {duration: 2000});
         }, complete: () => {
           if (this.locationData) {
             this.dataForm.patchValue({
@@ -119,8 +119,8 @@ export class HomeComponent implements OnInit {
       this.rickService.getEpisode(this.episodeInfo).subscribe({
         next: (res) => {
           this.episodeData = res
-        }, error: () => {
-
+        }, error: (error) => {
+          this.snackbarService.open(error.error, '', {duration: 2000});
         }, complete: () => {
           if (this.episodeData) {
             this.dataForm.patchValue({
@@ -140,6 +140,7 @@ export class HomeComponent implements OnInit {
   onSubmit() {
     if (!localStorage.getItem('information')) {
       localStorage.setItem('information', JSON.stringify([this.dataForm.value]));
+      this.rickService.setCurrentDataSate(this.dataForm.value);
       this.snackbarService.open('Information Guardada', '', {duration: 2000});
     } else {
       const data = JSON.parse(localStorage.getItem('information')!);
@@ -149,11 +150,13 @@ export class HomeComponent implements OnInit {
         data.splice(i, 1);
         data.push(this.dataForm.value)
         localStorage.setItem('information', JSON.stringify(data));
+        this.rickService.setCurrentDataSate(data);
         this.snackbarService.open('Information actualizada', '', {duration: 2000});
       } else {
         data.push(this.dataForm.value);
-        this.snackbarService.open('Information Guardada', '', {duration: 2000});
         localStorage.setItem('information', JSON.stringify(data));
+        this.rickService.setCurrentDataSate(data);
+        this.snackbarService.open('Information Guardada', '', {duration: 2000});
       }
     }
   }

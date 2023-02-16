@@ -1,4 +1,4 @@
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
@@ -12,6 +12,8 @@ export class RickMortyService {
 
 
   private readonly apiUrl = environment.apiUrl;
+  currentDataState$ = new BehaviorSubject<any>({});
+
 
   constructor(private http: HttpClient) {
 
@@ -30,4 +32,11 @@ export class RickMortyService {
     return this.http.get<Episode>(`${url}`, {responseType: 'json'})
   }
 
+  setCurrentDataSate(payload: any): void {
+    return this.currentDataState$.next(payload);
+  }
+
+  getCurrentDataState(): Observable<any> {
+    return this.currentDataState$.asObservable();
+  }
 }
