@@ -13,10 +13,8 @@ export class TableComponent implements OnInit {
 
   constructor(private rickService: RickMortyService) {
     this.rickService.getCurrentDataState().subscribe(data => {
-      if (data) {
-        this.dataSource = data.sort(function (a: { id: number; name: string; }, b: { id: number; name: any; }) {
-          return a.id - b.id || a.name.localeCompare(b.name);
-        });
+      if (data.length > 0) {
+        this.dataSource = data.sort((a: { id: number; }, b: { id: number; }) => a.id - b.id);
       }
     });
   }
@@ -24,9 +22,7 @@ export class TableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'gender', 'location', 'status'];
 
   ngOnInit(): void {
-    this.dataSource = JSON.parse(localStorage.getItem('information')!).sort(function (a: { id: number; name: string; }, b: { id: number; name: any; }) {
-      return a.id - b.id || a.name.localeCompare(b.name);
-    });
+    this.dataSource = JSON.parse(localStorage.getItem('information')!).sort((a: { id: number; }, b: { id: number; }) => a.id - b.id);
   }
 
 }
