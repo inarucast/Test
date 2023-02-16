@@ -1,0 +1,81 @@
+<h5 class="text-primary">Rick & Morty</h5>
+
+<ul class="breadcrumb">
+  <li><a href="#">Personajes</a></li>
+  <li>Formulario del personaje</li>
+</ul>
+
+Current Id:  <input matInput placeholder="Id" [formControl]="activeCharacterControl" class="rick-input">
+
+<form [formGroup]="dataForm" (ngSubmit)="onSubmit()" id="informationForm">
+  <mat-card class="mt-2">
+    <mat-card-subtitle class="text-primary mb-2">Informacion del personaje</mat-card-subtitle>
+    <mat-card-content class="content-grid">
+      <input matInput placeholder="Nombre" formControlName="name" class="rick-input">
+      <input matInput placeholder="Estatus" formControlName="status" class="rick-input">
+      <input matInput placeholder="Especie" formControlName="species" class="rick-input">
+      <input matInput placeholder="Genero" formControlName="gender" class="rick-input">
+      <input matInput placeholder="Ubicacion" formControlName="location" class="rick-input">
+    </mat-card-content>
+  </mat-card>
+
+  <div class="content-grid">
+    <mat-card class="mt-2">
+      <mat-card-subtitle class="text-primary  mb-2"> Localizacion del personaje</mat-card-subtitle>
+      <mat-card-content class="content-grid">
+        <input matInput placeholder="Nombre" formControlName="locationName" class="rick-input">
+        <input matInput placeholder="Tipo" formControlName="locationType" class="rick-input">
+        <input matInput placeholder="Dimensiones" formControlName="locationDimension" class="rick-input">
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mt-2">
+      <mat-card-subtitle class="text-primary  mb-2"> Residente</mat-card-subtitle>
+      <mat-card-content class="content-grid">
+        <ng-container *ngIf="residentData; else withoutResident">
+          <input matInput placeholder="Nombre" formControlName="residentName" class="rick-input">
+          <input matInput placeholder="Nombre" formControlName="residentSpecies" class="rick-input">
+          <input matInput placeholder="Nombre" formControlName="residentStatus" class="rick-input">
+        </ng-container>
+        <ng-template #withoutResident>
+          <div class="alert-message info">
+            No tiene residentes activos
+          </div>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card class="mt-2">
+    <mat-card-subtitle class="text-primary  mb-2"> Episodio</mat-card-subtitle>
+    <mat-card-content class="content-grid">
+      <ng-container *ngIf="episodeData; else withoutEpisode">
+        <input matInput placeholder="Nombre" formControlName="episodeName" class="rick-input">
+      </ng-container>
+      <ng-template #withoutEpisode>
+        <div class="alert-message info">
+          No tiene episodios activos
+        </div>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</form>
+
+<div class="d-flex justify-content-end mt-2 mb-2">
+  <button type="submit" form="informationForm" mat-raised-button color="primary"
+          [disabled]="dataForm.invalid">Guardar
+  </button>
+</div>
+
+<hr>
+
+<mat-card class="mt-2 mb-2">
+  <mat-card-subtitle class="text-primary  mb-2"> Datos Almacenados</mat-card-subtitle>
+  <mat-card-content class="content-grid">
+    <app-table></app-table>
+  </mat-card-content>
+</mat-card>
+
+
+
+
