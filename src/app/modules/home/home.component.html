@@ -5,7 +5,7 @@
   <li>Formulario del personaje</li>
 </ul>
 
-Current Id:  <input matInput placeholder="Id" [formControl]="activeCharacterControl" class="rick-input">
+Current Id:  <input type="number" matInput placeholder="Id" [formControl]="activeCharacterControl" class="rick-input">
 
 <form [formGroup]="dataForm" (ngSubmit)="onSubmit()" id="informationForm">
   <mat-card class="mt-2">
@@ -71,7 +71,7 @@ Current Id:  <input matInput placeholder="Id" [formControl]="activeCharacterCont
 
 <mat-card class="mt-2 mb-2">
   <mat-card-subtitle class="text-primary  mb-2"> Datos Almacenados</mat-card-subtitle>
-  <mat-card-content class="content-grid">
+  <mat-card-content>
     <app-table></app-table>
   </mat-card-content>
 </mat-card>

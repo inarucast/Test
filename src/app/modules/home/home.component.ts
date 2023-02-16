@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
           this.residentData = res;
         }
       }, error: (error) => {
-        this.snackbarService.open(error.error, '', {duration: 2000});
+        this.snackbarService.open(error.error.error, '', {duration: 2000});
       }, complete: () => {
         if (this.characterData) {
           if (type === 'character') {
@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit {
         next: (res) => {
           this.locationData = res
         }, error: (error) => {
-          this.snackbarService.open(error.error, '', {duration: 2000});
+          this.snackbarService.open(error.error.error, '', {duration: 2000});
         }, complete: () => {
           if (this.locationData) {
             this.dataForm.patchValue({
@@ -120,7 +120,7 @@ export class HomeComponent implements OnInit {
         next: (res) => {
           this.episodeData = res
         }, error: (error) => {
-          this.snackbarService.open(error.error, '', {duration: 2000});
+          this.snackbarService.open(error.error.error, '', {duration: 2000});
         }, complete: () => {
           if (this.episodeData) {
             this.dataForm.patchValue({
